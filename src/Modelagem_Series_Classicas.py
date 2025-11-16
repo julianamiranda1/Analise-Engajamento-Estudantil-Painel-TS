@@ -64,19 +64,28 @@ results = pd.DataFrame({
 print("--- Resultados da Previsão (Modelos Clássicos) ---")
 print(results.to_markdown(index=False))
 
-# --- 5. Plotagem (Opcional, requer a biblioteca matplotlib) ---
+# --- 5. Plotagem ---
 plt.figure(figsize=(12, 6))
-plt.plot(train.index, train.values, label='Treinamento', marker='o')
-plt.plot(test.index, test.values, label='Real (Teste)', marker='o', color='red')
-plt.plot(test_index, hw_forecast.values, label=f'Previsão Holt-Winters (RMSE: {rmse_hw:.4f})', linestyle='--', marker='x')
-plt.plot(test_index, arima_forecast.values, label=f'Previsão ARIMA(1,1,0) (RMSE: {rmse_arima:.4f})', linestyle='--', marker='x')
 
+# Dados de Treinamento (Histórico)
+plt.plot(train.index, train.values, label='Treinamento', marker='o')
+
+# Dados Reais de Teste (O que realmente aconteceu nas Semanas 11, 12, 13)
+plt.plot(test.index, test.values, label='Real (Teste)', marker='o', color='red')
+
+# Previsão Holt-Winters
+plt.plot(test_index, hw_forecast.values, label=f'Previsão Holt-Winters (RMSE: {rmse_hw:.4f})', linestyle='--', marker='x')
+
+# Previsão ARIMA
+plt.plot(test_index, arima_forecast.values, label=f'Previsão ARIMA (RMSE: {rmse_arima:.4f})', linestyle='--', marker='x')
+
+# Configurações do Gráfico
 plt.title('Previsão de Engajamento Agregado (Modelos Clássicos)')
 plt.xlabel('Semana')
 plt.ylabel('Engajamento Médio Agregado (0 a 1)')
 plt.legend()
 plt.grid(True)
-plt.savefig(r'data\previsao_series_classicas.png')
-plt.show()
 
-print("\nModelos Clássicos executados. Gráfico salvo como 'previsao_series_classicas.png'.")
+# Salva o arquivo na pasta data/ (garanta que a variável DATA_DIR esteja definida no topo do seu script)
+plt.savefig(r'data/previsao_series_classicas.png')
+plt.show()
