@@ -1,0 +1,35 @@
+# Arquivos de Dados Gerados pelo Projeto (Intermediários e Finais)
+# Estes arquivos devem ser regenerados pelos scripts, não versionados.
+dados_engajamento_longo.csv
+dados_engajamento_painel_final.csv
+engajamento_medio_semanal.csv
+
+# Arquivos de Output e Resultados
+comparacao_modelos_painel.html
+previsao_series_classicas.png
+*.log
+
+# Modelos Treinados (Se você salvar os modelos LSTM/GRU)
+*.h5
+*.keras
+*.pkl
+checkpoints/
+
+# Arquivos de Ambientes Virtuais
+# Garante que as dependências não sejam versionadas, apenas o requirements.txt
+venv/
+.venv/
+env/
+/bin/
+/lib/
+/include/
+
+# Arquivos de Cache do Python e Bytecode
+__pycache__/
+*.pyc
+.ipynb_checkpoints
+
+# Arquivos de IDEs e Sistemas Operacionais (Comuns)
+.DS_Store
+.vscode/
+Thumbs.db
