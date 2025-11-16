@@ -6,7 +6,7 @@ A abordagem combina **modelos econométricos**, **métodos clássicos de séries
 
 ## 1. Visão Geral do Projeto
 
-Este projeto tem como objetivo central analisar a evolução do engajamento dos estudantes ao longo das semanas letivas e desenvolver modelos robustos capazes de **prever quedas de participação** em nível individual antes que elas se concretizem. Para isso, os dados, que são observações de múltiplos alunos ao longo do tempo (painel), foram analisados através de uma combinação de métodos econométricos estruturais (Painel) e técnicas avançadas de previsão temporal (ARIMA, Holt-Winters, LSTM e GRU).
+Este projeto tem como objetivo central analisar a evolução do engajamento dos estudantes ao longo das semanas letivas e desenvolver modelos capazes de **prever quedas de participação** em nível individual antes que elas se concretizem. Para isso, os dados, que são observações de múltiplos alunos ao longo do tempo (painel), foram analisados através de uma combinação de métodos econométricos estruturais (Painel) e técnicas avançadas de previsão temporal (ARIMA, Holt-Winters, LSTM e GRU).
 
 ## 2. Metodologia e Modelos Aplicados
 

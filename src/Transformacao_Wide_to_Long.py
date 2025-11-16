@@ -2,7 +2,6 @@ import pandas as pd
 import re
 
 file_name = r'data\Base anonimizada - Eric - PUC-SP.xlsx'
-# Carrega os dados. O cabeçalho real começa na terceira linha (índice 2).
 df = pd.read_excel(file_name, header=2)
 
 # ===============================================

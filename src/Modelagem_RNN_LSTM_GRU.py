@@ -15,7 +15,7 @@ df_filtered = df_filtered.dropna(subset=['Engajamento_Agregado'])
 df_rnn = df_filtered[['Num', 'Semana', 'Engajamento_Agregado']].copy()
 
 # Parâmetros de Sequência
-n_steps = 5 # Usar 5 semanas anteriores para prever a próxima
+n_steps = 5
 n_features = 1 
 
 # --- Função de Criação de Sequências (Time Series Windowing) ---
@@ -97,4 +97,4 @@ results_rnn = pd.DataFrame({
 })
 print(results_rnn.to_markdown(index=False))
 
-print("\n✅ Etapa 4 (RNN) concluída.")
+print("\nEtapa 4 (RNN) concluída.")

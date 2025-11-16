@@ -3,8 +3,6 @@ from linearmodels import PanelOLS, RandomEffects, PooledOLS
 from linearmodels.panel import compare
 import numpy as np
 
-# Carrega o DataFrame final filtrado (Semanas 1 a 13)
-# Assume que este arquivo foi gerado corretamente após a Etapa 2.
 df_filtered = pd.read_csv(r'data\dados_engajamento_painel_final.csv')
 
 df_filtered.drop_duplicates(subset=['Num', 'Semana'], inplace=True)
@@ -25,8 +23,6 @@ X = df_panel[['Semana_N']]
 y_clean = y.dropna()
 X_clean = X.loc[y_clean.index].assign(Intercept=1)
 
-# 🆕 CORREÇÃO DEFINITIVA DE CLUSTERS: Cria uma Series com o MultiIndex completo de y_clean
-# Isso satisfaz a exigência do linearmodels de ter um índice de 2 níveis.
 clusters_values = y_clean.index.get_level_values('Num')
 cluster_series = pd.Series(clusters_values, index=y_clean.index)
 
@@ -58,4 +54,4 @@ results_panel = compare({'Pooled OLS': pooled_res, 'Fixed Effects': fe_res, 'Ran
 with open(r'data\comparacao_modelos_painel.html', 'w') as f:
     f.write(results_panel.__str__())
 
-print("\n✅ Etapa 3 concluída: Modelos de Dados em Painel treinados e comparados. Resultados salvos em 'comparacao_modelos_painel.html'.")
+print("\nEtapa 3 concluída: Modelos de Dados em Painel treinados e comparados. Resultados salvos em 'comparacao_modelos_painel.html'.")

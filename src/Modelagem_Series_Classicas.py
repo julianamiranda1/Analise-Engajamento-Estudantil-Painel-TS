@@ -8,7 +8,6 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # --- 1. Preparação dos Dados ---
-# Carrega a Série Temporal Agregada (gerada na Etapa 2)
 engagement_ts_filtered = pd.read_csv(r'data\engajamento_medio_semanal.csv')
 # Filtra para as 13 semanas consistentes e define 'Semana' como índice
 engagement_ts_filtered = engagement_ts_filtered[engagement_ts_filtered['Semana'] <= 13].set_index('Semana')
@@ -22,7 +21,6 @@ test = ts_data.iloc[-forecast_periods:]
 test_index = test.index
 
 # --- 2. Modelo Holt-Winters (Suavização Exponencial) ---
-# Usa a suavização exponencial aditiva, adequada para dados com pouca ou nenhuma sazonalidade clara.
 try:
     hw_model = ExponentialSmoothing(
         train, 
@@ -38,7 +36,6 @@ except Exception as e:
 
 
 # --- 3. Modelo ARIMA (AutoRegressive Integrated Moving Average) ---
-# A ordem (1, 1, 0) é um ponto de partida comum: AR(1), 1 diferença (para estabilizar a média), MA(0).
 try:
     arima_model = ARIMA(train, order=(1, 1, 0)).fit()
     arima_forecast = arima_model.forecast(forecast_periods)
@@ -82,4 +79,4 @@ plt.grid(True)
 plt.savefig(r'data\previsao_series_classicas.png')
 plt.show()
 
-print("\n✅ Modelos Clássicos executados. Gráfico salvo como 'previsao_series_classicas.png'.")
+print("\nModelos Clássicos executados. Gráfico salvo como 'previsao_series_classicas.png'.")

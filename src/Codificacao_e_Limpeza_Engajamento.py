@@ -1,11 +1,10 @@
 import pandas as pd
 import numpy as np
 
-# Carrega o DataFrame no formato longo gerado na etapa anterior (Etapa 1)
 df_long = pd.read_csv(r'data\dados_engajamento_longo.csv', sep=',')
 
 # ===============================================
-# 1. CODIFICAÇÃO DAS VARIÁVEIS DE ENGAJAMENTO (Métricas numéricas brutas)
+# 1. CODIFICAÇÃO DAS VARIÁVEIS DE ENGAJAMENTO
 # ===============================================
 
 # Pre-Class (Binária: Sim=1, Não=0)
@@ -23,7 +22,7 @@ df_long['CP_N'] = df_long['CP'].replace({':-D': 2, ':-/': 1, ':-&': 0})
 # Bh (Comportamento: OK=1, Ruim=0)
 df_long['Bh_N'] = df_long['Bh'].replace({':-||': 1, ':-(': 0})
 
-# Garante que todas as novas colunas sejam numéricas (coercing erros para NaN)
+# Garante que todas as novas colunas sejam numéricas
 cols_to_convert = ['Pre-Class_N', 'P_N', 'Hw_N', 'CP_N', 'Bh_N']
 for col in cols_to_convert:
     df_long[col] = pd.to_numeric(df_long[col], errors='coerce')
@@ -32,10 +31,10 @@ for col in cols_to_convert:
 # 2. NORMALIZAÇÃO (0 a 1) E CÁLCULO DO ENG. AGREGADO
 # ===============================================
 
-# Normaliza Hw e CP (que tinham score máximo 2)
+# Normaliza Hw e CP
 df_long['Hw_Norm'] = df_long['Hw_N'] / 2.0
 df_long['CP_Norm'] = df_long['CP_N'] / 2.0
-# As demais (P_N, Pre-Class_N, Bh_N) já têm score máximo 1
+# As demais (P_N, Pre-Class_N, Bh_N)
 df_long['Pre-Class_Norm'] = df_long['Pre-Class_N']
 df_long['P_Norm'] = df_long['P_N']
 df_long['Bh_Norm'] = df_long['Bh_N']
@@ -50,12 +49,9 @@ df_long['Engajamento_Agregado'] = df_long[normalized_metrics].mean(axis=1)
 # 3. FILTRAGEM E SALVAMENTO DOS DADOS LIMPOS
 # ===============================================
 
-# Filtra para as 13 semanas consistentes e remove NaNs na variável dependente
 df_filtered = df_long[df_long['Semana'] <= 13].copy().dropna(subset=['Engajamento_Agregado'])
 
-# Salva o DataFrame final para uso nos modelos de painel
 df_filtered.to_csv(r'data\dados_engajamento_painel_final.csv', index=False)
 
-# Extrai e salva a Série Temporal Média (para modelos ARIMA/Holt-Winters)
 engagement_ts = df_filtered.groupby('Semana')['Engajamento_Agregado'].mean().reset_index()
 engagement_ts.to_csv(r'data\engajamento_medio_semanal.csv', index=False)
